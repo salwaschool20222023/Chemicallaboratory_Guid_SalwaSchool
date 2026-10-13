@@ -320,6 +320,11 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .cv-bottom{margin-top:0;gap:calc(var(--u)*1.2)}
 .cover .pg{padding-bottom:calc(var(--u)*7)}
 
+/* ---- عنوان الغلاف على سطرين ---- */
+.cv-main h1{display:flex;flex-direction:column;align-items:center;line-height:1.1;gap:calc(var(--u)*.4)}
+.cv-main h1 .t1{font-size:calc(var(--u)*7.2);font-weight:700;color:#ffc2d8;letter-spacing:.5px}
+.cv-main h1 .t2{font-size:calc(var(--u)*11);font-weight:800;line-height:1.15}
+
 </style>
 </head>
 <body>
@@ -530,6 +535,13 @@ window.MAG = {
       '<g fill="rgba(215,122,158,.35)"><circle cx="320" cy="60" r="4"/><circle cx="380" cy="162" r="4"/><circle cx="70" cy="380" r="4"/><circle cx="350" cy="350" r="5"/></g></svg>';
   }
 
+  /* «دليل» في سطر ثم باقي العنوان في سطر ثانٍ */
+  function titleLines(t) {
+    var i = t.indexOf(' ');
+    if (i < 0) return esc(t);
+    return '<span class="t1">' + esc(t.slice(0, i)) + '</span><span class="t2">' + esc(t.slice(i + 1)) + '</span>';
+  }
+
   function pageCover() {
     var p = el('div', 'page cover'); p.setAttribute('data-density', 'hard');
     var c = M.credits;
@@ -542,7 +554,7 @@ window.MAG = {
       '<div class="cv-ministry">' + esc(M.ministry) + '</div>' +
       '<div class="cv-district">' + esc(M.district) + '</div>' +
       '<div class="cv-school">' + esc(M.school) + '</div></div>' +
-      '<div class="cv-main"><h1>' + esc(M.title) + '</h1><div class="cv-rule"></div>' +
+      '<div class="cv-main"><h1>' + titleLines(M.title) + '</h1><div class="cv-rule"></div>' +
       '<p class="cv-topic">' + esc(M.topic) + '</p></div>' +
       '<div class="cv-bottom"><div class="cv-credits">' + cr(0, 'main') + cr(1) + cr(2) + cr(3) + '</div>' +
       '<div class="cv-year">' + esc(M.year) + '</div></div>' +
